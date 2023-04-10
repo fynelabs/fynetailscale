@@ -22,11 +22,12 @@ type login struct {
 
 var _ io.Closer = (*login)(nil)
 
+// NewLogin will show a dialog that will allow the user to login to tailscale if necessary.
 func NewLogin(ctx context.Context, win fyne.Window, lc *tailscale.LocalClient, done func(succeeded bool)) io.Closer {
 	cancellable, cancel := context.WithCancel(ctx)
 
 	connecting := container.NewVBox(container.NewBorder(nil, nil, widget.NewLabel("Connecting"), nil, widget.NewProgressBarInfinite()))
-	info, _ := NewQRHelper(nil)
+	info, _ := NewQRCode(nil)
 	info.Hide()
 	minSizeRect := canvas.NewRectangle(color.Transparent)
 	minSizeRect.SetMinSize(fyne.NewSize(255, 255))
@@ -118,6 +119,7 @@ func NewLogin(ctx context.Context, win fyne.Window, lc *tailscale.LocalClient, d
 	}
 }
 
+// Close will close the dialog.
 func (d *login) Close() error {
 	d.cancel()
 	return nil

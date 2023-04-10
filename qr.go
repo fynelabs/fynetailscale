@@ -11,17 +11,19 @@ import (
 	qrcode "github.com/skip2/go-qrcode"
 )
 
-type QRHelper struct {
+// QRCode is a widget that displays a QR code and a link to the URL it represents.
+type QRCode struct {
 	widget.BaseWidget
 
 	image     *canvas.Image
 	loginLink *widget.Hyperlink
 }
 
-var _ fyne.Widget = (*QRHelper)(nil)
+var _ fyne.Widget = (*QRCode)(nil)
 
-func NewQRHelper(u *url.URL) (*QRHelper, error) {
-	r := &QRHelper{
+// NewQRCode creates a new QRCode widget.
+func NewQRCode(u *url.URL) (*QRCode, error) {
+	r := &QRCode{
 		image: &canvas.Image{
 			FillMode: canvas.ImageFillOriginal,
 		},
@@ -33,11 +35,13 @@ func NewQRHelper(u *url.URL) (*QRHelper, error) {
 	return r, nil
 }
 
-func (r *QRHelper) CreateRenderer() fyne.WidgetRenderer {
+// CreateRenderer implements fyne.Widget.
+func (r *QRCode) CreateRenderer() fyne.WidgetRenderer {
 	return qrRenderer{container: container.NewBorder(nil, r.loginLink, nil, nil, r.image)}
 }
 
-func (r *QRHelper) SetURL(url *url.URL) error {
+// SetURL sets the URL to display.
+func (r *QRCode) SetURL(url *url.URL) error {
 	err := r.setURL(url)
 	if err != nil {
 		return err
@@ -47,7 +51,7 @@ func (r *QRHelper) SetURL(url *url.URL) error {
 	return nil
 }
 
-func (r *QRHelper) setURL(u *url.URL) error {
+func (r *QRCode) setURL(u *url.URL) error {
 	if u == nil {
 		r.image.Image = image.NewRGBA(image.Rect(0, 0, 256, 256))
 		r.loginLink.Text = ""

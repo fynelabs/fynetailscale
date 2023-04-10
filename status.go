@@ -8,6 +8,7 @@ import (
 	"tailscale.com/client/tailscale"
 )
 
+// NewStatus will return a widget that will update with the current status of tailscale network connection.
 func NewStatus(ctx context.Context, lc *tailscale.LocalClient) *widget.Label {
 	r := widget.NewLabel("Connecting...")
 	go func() {
