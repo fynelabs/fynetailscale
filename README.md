@@ -42,3 +42,5 @@ For a demo, you can install the provided application that allow you to do HTTP G
 ```
 $ go install github.com/fyne-labs/fynetailscale/cmd/demo@latest
 ```
+
+![demo](img/demo_tailscale.png)
