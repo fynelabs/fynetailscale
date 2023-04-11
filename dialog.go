@@ -11,6 +11,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 	"tailscale.com/client/tailscale"
 )
@@ -26,7 +27,7 @@ var _ io.Closer = (*login)(nil)
 func NewLogin(ctx context.Context, win fyne.Window, lc *tailscale.LocalClient, done func(succeeded bool)) io.Closer {
 	cancellable, cancel := context.WithCancel(ctx)
 
-	connecting := container.NewCenter(container.NewBorder(nil, nil, widget.NewLabel("Connecting"), nil, widget.NewProgressBarInfinite()))
+	connecting := container.NewVBox(layout.NewSpacer(), container.NewBorder(nil, nil, widget.NewLabel("Connecting"), nil, widget.NewProgressBarInfinite()), layout.NewSpacer())
 	info, _ := NewQRCode(nil)
 	info.Hide()
 	minSizeRect := canvas.NewRectangle(color.Transparent)
