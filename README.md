@@ -20,6 +20,12 @@ This provide the ability to monitor the connection to the tailscale network and 
 func NewStatus(ctx context.Context, lc *tailscale.LocalClient) *widget.Label
 ```
 
+It is possible to get a String data binding that you can use how you want to get the tailscale connection status.
+
+```go
+func NewStatusBinding(ctx context.Context, lc *tailscale.LocalClient) binding.String
+```
+
 ## QR code
 
 This helper are here to facilitate displaying an URL in the form of a QRCode along with a Fyne widget.Hyperlink.
