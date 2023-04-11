@@ -61,8 +61,10 @@ func main() {
 	d := fynetailscale.NewLogin(ctx, w, lc, func(succeeded bool) {
 		if succeeded {
 			fmt.Println("Connected")
+			request.Enable()
 		} else {
 			fmt.Println("Failed to connect")
+			request.Disable()
 		}
 	})
 	defer d.Close()
