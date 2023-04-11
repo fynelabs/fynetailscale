@@ -26,12 +26,12 @@ var _ io.Closer = (*login)(nil)
 func NewLogin(ctx context.Context, win fyne.Window, lc *tailscale.LocalClient, done func(succeeded bool)) io.Closer {
 	cancellable, cancel := context.WithCancel(ctx)
 
-	connecting := container.NewVBox(container.NewBorder(nil, nil, widget.NewLabel("Connecting"), nil, widget.NewProgressBarInfinite()))
+	connecting := container.NewCenter(container.NewBorder(nil, nil, widget.NewLabel("Connecting"), nil, widget.NewProgressBarInfinite()))
 	info, _ := NewQRCode(nil)
 	info.Hide()
 	minSizeRect := canvas.NewRectangle(color.Transparent)
 	minSizeRect.SetMinSize(fyne.NewSize(255, 255))
-	content := container.NewMax(minSizeRect, connecting, info)
+	content := container.NewMax(minSizeRect, connecting, container.NewCenter(info))
 
 	d := dialog.NewCustom("Login", "Cancel", content, win)
 	d.SetOnClosed(func() {
