@@ -32,7 +32,7 @@ func NewLogin(ctx context.Context, win fyne.Window, lc *tailscale.LocalClient, d
 	info.Hide()
 	minSizeRect := canvas.NewRectangle(color.Transparent)
 	minSizeRect.SetMinSize(fyne.NewSize(255, 255))
-	content := container.NewMax(minSizeRect, connecting, container.NewCenter(info))
+	content := container.NewMax(minSizeRect, connecting, container.NewHBox(layout.NewSpacer(), info, layout.NewSpacer()))
 
 	d := dialog.NewCustom("Login", "Cancel", content, win)
 	d.SetOnClosed(func() {
